@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BugBoard Security Test</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="profile.html">Profile</a>
+        <a href="security-test.html">Security Test</a>
+    </nav>
+
+    <main>
+        <h1>Storage Inspector</h1>
+
+        <p>
+            Lab-only tool for testing BugBoard's client-side authentication state.
+        </p>
+
+        <h2>Current localStorage</h2>
+
+        <p>
+            Username:
+            <strong id="currentUsername">Not set</strong>
+        </p>
+
+        <button id="setAdmin">Set username to admin</button>
+        <button id="setTest">Set username to marttest</button>
+        <button id="clearStorage">Clear username</button>
+
+        <p id="message"></p>
+    </main>
+
+    <script>
+        const currentUsername = document.getElementById("currentUsername");
+        const message = document.getElementById("message");
+
+        function refreshStorage() {
+            const username = localStorage.getItem("username");
+
+            currentUsername.textContent =
+                username === null ? "Not set" : username;
+        }
+
+        document.getElementById("setAdmin").addEventListener("click", function () {
+            localStorage.setItem("username", "admin");
+            message.textContent = "Username changed to admin.";
+            refreshStorage();
+        });
+
+        document.getElementById("setTest").addEventListener("click", function () {
+            localStorage.setItem("username", "marttest");
+            message.textContent = "Username changed to marttest.";
+            refreshStorage();
+        });
+
+        document.getElementById("clearStorage").addEventListener("click", function () {
+            localStorage.removeItem("username");
+            message.textContent = "Username removed from localStorage.";
+            refreshStorage();
+        });
+
+        refreshStorage();
+    </script>
+</body>
+</html>

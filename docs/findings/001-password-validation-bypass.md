@@ -73,3 +73,25 @@ Client-side validation can improve user experience, but it must never be the sec
 Confirmed in the intentionally vulnerable BugBoard training application.
 
 No production system was tested.
+
+## Runtime Verification
+
+The vulnerability was reproduced through the BugBoard frontend.
+
+Test account:
+
+    Username: marttest
+
+Test password:
+
+    123
+
+The application returned:
+
+    Login successful
+
+The supplied password was intentionally treated as an incorrect test password.
+
+The browser console also showed the stored username and the login submission event.
+
+This confirms that the frontend accepts any non-empty password after the username check succeeds.
