@@ -93,3 +93,66 @@ Once the BugBoard backend and database are implemented, username and email uniqu
 Confirmed in the intentionally vulnerable BugBoard training application.
 
 No production system was tested.
+
+## Runtime Verification
+
+The registration validation weaknesses were reproduced through the BugBoard frontend.
+
+### Test 1 — Duplicate Username
+
+First registration:
+
+    Username: marttest
+    Email: first@bugboard.local
+
+A second registration reused the same username with a different email:
+
+    Username: marttest
+    Email: second@bugboard.local
+
+Observed result:
+
+    Registration successful
+
+The application accepted the duplicate username.
+
+### Test 2 — Duplicate Email
+
+A different username was registered using an email address that had already been used:
+
+    Username: anotheruser
+    Email: second@bugboard.local
+
+Observed result:
+
+    Registration successful
+
+The application accepted the duplicate email address.
+
+### Test 3 — Weak Password
+
+A new registration was submitted using a one-character password:
+
+    Username: weaktest
+    Email: weaktest@bugboard.local
+    Password: 1
+
+Observed result:
+
+    Registration successful
+
+The application accepted the one-character password.
+
+## Runtime Conclusion
+
+All three registration validation tests were successfully reproduced.
+
+The current frontend does not enforce:
+
+- Username uniqueness
+- Email uniqueness
+- Minimum password length
+- Password strength requirements
+
+Because the current BugBoard application does not have a registration backend or database, these results demonstrate frontend validation weaknesses rather than confirmed database-level uniqueness vulnerabilities.
+
